@@ -90,3 +90,17 @@ server.get('/api/notify', async (req, res) => {
     res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
     res.end();
 });
+
+//Custom prs
+server.get('/api/prs', async (req, res) => {
+    for (const conversationReference of Object.values(conversationReferences)) {
+        await adapter.continueConversationAsync(process.env.MicrosoftAppId, conversationReference, async context => {
+            await context.sendActivity('Pull Request 1 \nPull Request 2 \nPull Request 3');
+        });
+    }
+
+    res.setHeader('Content-Type', 'text/html');
+    res.writeHead(200);
+    res.write('<html><body><h1>Lista de PRs ha sido enviada.</h1></body></html>');
+    res.end();
+});

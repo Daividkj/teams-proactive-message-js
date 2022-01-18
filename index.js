@@ -95,7 +95,8 @@ server.get('/api/notify', async (req, res) => {
 server.get('/api/prs', async (req, res) => {
     for (const conversationReference of Object.values(conversationReferences)) {
         await adapter.continueConversationAsync(process.env.MicrosoftAppId, conversationReference, async context => {
-            await context.sendActivity('Pull Request 1 \nPull Request 2 \nPull Request 3');
+            let customMessage = 'Pull Request 1 \nPull Request 2 \nPull Request 3';
+            await context.sendActivity(customMessage);
         });
     }
 
